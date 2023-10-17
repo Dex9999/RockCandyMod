@@ -1,0 +1,6 @@
+C:\Users\razor\source\repos\CoolMod\CoolMod\bin\Debug\CoolMod.dll
+C:\Users\razor\source\repos\CoolMod\CoolMod\bin\Debug\CoolMod.pdb
+C:\Users\razor\source\repos\CoolMod\CoolMod\obj\Debug\CoolMod.csproj.AssemblyReference.cache
+C:\Users\razor\source\repos\CoolMod\CoolMod\obj\Debug\CoolMod.csproj.CoreCompileInputs.cache
+C:\Users\razor\source\repos\CoolMod\CoolMod\obj\Debug\CoolMod.dll
+C:\Users\razor\source\repos\CoolMod\CoolMod\obj\Debug\CoolMod.pdb
