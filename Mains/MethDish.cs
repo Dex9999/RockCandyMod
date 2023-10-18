@@ -20,7 +20,7 @@ namespace MethMod.Mains
         public override string UniqueNameID => "Meth Dish";
         public override DishType Type => DishType.Base;
         //change to actual icon later
-        public override GameObject DisplayPrefab => Mod.Bundle.LoadAsset<GameObject>("tinker");
+        public override GameObject DisplayPrefab => Mod.Bundle.LoadAsset<GameObject>("Crystal");
         public override GameObject IconPrefab => DisplayPrefab;
         // should more or less people come for this dish, LargeIncrease, SmallDecrease etc
         public override DishCustomerChange CustomerMultiplier => DishCustomerChange.SmallIncrease;
@@ -98,13 +98,18 @@ namespace MethMod.Mains
                 Ingredient = (Item)GDOUtils.GetExistingGDO(ItemReferences.Oil)
             }
         };
-        
+
+        // make the lobby card thing
+        public override List<(Locale, UnlockInfo)> InfoList => new List<(Locale, UnlockInfo)> {
+            { (Locale.English, LocalisationUtils.CreateUnlockInfo("Meth", "Jesse, we need to cook!", "Make sure it's up to Los Pollos Standards") )}
+        };
+
 
         public override void OnRegister(GameDataObject gameDataObject)
         {
-            MaterialUtils.ApplyMaterial(DisplayPrefab, "group_0_-1040146473", new Material[]
+            MaterialUtils.ApplyMaterial(DisplayPrefab, "mesh", new Material[]
             {
-                MaterialUtils.GetCustomMaterial("Simple Flat"),
+                MaterialUtils.GetCustomMaterial("ShinyBlue"),
             });
         }
     }

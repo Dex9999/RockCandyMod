@@ -19,8 +19,8 @@ namespace MethMod.Mains
         //self explanatory
         public override string UniqueNameID => "CookedMeth";
         // This is the GameObject used for this Item's visual.
-        // the name of my obj was tinker
-        public override GameObject Prefab => Mod.Bundle.LoadAsset<GameObject>("tinker");
+        // the name of my obj was Crystal
+        public override GameObject Prefab => Mod.Bundle.LoadAsset<GameObject>("Crystal");
         // other catergories?
         public override ItemCategory ItemCategory => ItemCategory.Generic;
         // this food is stackable
@@ -44,14 +44,14 @@ namespace MethMod.Mains
 
         public override void OnRegister(GameDataObject gameDataObject)
         {
-            MaterialUtils.ApplyMaterial(Prefab, "group_0_-1040146473", new Material[]
+            MaterialUtils.ApplyMaterial(Prefab, "mesh", new Material[]
             {
-                MaterialUtils.GetCustomMaterial("Simple Flat"),
+                MaterialUtils.GetCustomMaterial("ShinyBlue"),
             });
-            //i'm dumb and didnt rename the mesh so it's gibberish, you want to select the mesh, not the actual parent object
-            //also i kept the material json name as Simple Flat :sob:
-            //below is simpler but starflux doesn't know so i did above for now
-            //Prefab.ApplyMaterialToChild("group_0_-1040146473", "Simple Flat");
+            // you want to select the mesh, not the actual parent object
+            // material name is ShinyBlue
+            // below is simpler but starflux doesn't know so i did above for now
+            // Prefab.ApplyMaterialToChild("mesh", "ShinyBlue");
         }
     }
 }

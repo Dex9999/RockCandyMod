@@ -44,12 +44,12 @@ namespace MethMod
         //public static Item Garlic => (Item)GDOUtils.GetExistingGDO(IngredientLib.References.GetIngredient("garlic"));
 
         //processes, like how the character interacts
-        public static Process Cook = (Process)GDOUtils.GetExistingGDO(ProcessReferences.Cook);
-        public static Process Chop = (Process)GDOUtils.GetExistingGDO(ProcessReferences.Chop);
-        public static Process Knead = (Process)GDOUtils.GetExistingGDO(ProcessReferences.Knead);
+        public static Process Cook => (Process)GDOUtils.GetExistingGDO(ProcessReferences.Cook);
+        public static Process Chop => (Process)GDOUtils.GetExistingGDO(ProcessReferences.Chop);
+        public static Process Knead => (Process)GDOUtils.GetExistingGDO(ProcessReferences.Knead);
 
         //item, can be combined and carried around
-        public static Item CookedMeth = (Item)GDOUtils.GetCustomGameDataObject<CookedMeth>().GameDataObject;
+        public static Item CookedMeth => (Item)GDOUtils.GetCustomGameDataObject<CookedMeth>().GameDataObject;
         //dish
         public static Dish MethDish => (Dish)GDOUtils.GetCustomGameDataObject<MethDish>().GameDataObject;
 
