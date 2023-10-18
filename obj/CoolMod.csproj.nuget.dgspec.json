@@ -1,0 +1,57 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\razor\\source\\repos\\CoolMod\\CoolMod\\MethMod\\CoolMod.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\razor\\source\\repos\\CoolMod\\CoolMod\\MethMod\\CoolMod.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\razor\\source\\repos\\CoolMod\\CoolMod\\MethMod\\CoolMod.csproj",
+        "projectName": "CoolMod",
+        "projectPath": "C:\\Users\\razor\\source\\repos\\CoolMod\\CoolMod\\MethMod\\CoolMod.csproj",
+        "packagesPath": "C:\\Users\\razor\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\razor\\source\\repos\\CoolMod\\CoolMod\\MethMod\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "configFilePaths": [
+          "C:\\Users\\razor\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net472"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net472": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {
+          "dependencies": {
+            "Yariazen.PlateUp.ModBuildUtilities": {
+              "target": "Package",
+              "version": "[1.10.21, )"
+            }
+          }
+        }
+      },
+      "runtimes": {
+        "win": {
+          "#import": []
+        },
+        "win-x64": {
+          "#import": []
+        },
+        "win-x86": {
+          "#import": []
+        }
+      }
+    }
+  }
+}

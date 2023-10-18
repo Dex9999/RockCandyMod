@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "icO5eapMMm55S40dXUmdwjBVx1vkl8yQly2aAq5LBvi3VECDSUZtxO5G0tD1Lq+rSFBKQJ5R7yhMUeP2hDDGAQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\razor\\source\\repos\\CoolMod\\CoolMod\\MethMod\\CoolMod.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\razor\\.nuget\\packages\\yariazen.plateup.modbuildutilities\\1.10.21\\yariazen.plateup.modbuildutilities.1.10.21.nupkg.sha512"
+  ],
+  "logs": []
+}

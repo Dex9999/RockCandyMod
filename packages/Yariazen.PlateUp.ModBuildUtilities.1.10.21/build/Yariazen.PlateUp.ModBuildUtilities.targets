@@ -1,0 +1,88 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<Choose>
+		<When Condition="$(OS) == 'Unix'">
+			<PropertyGroup>
+				<GamePath Condition="!Exists('$(GamePath)')">$(HOME)/.steam/steam/steamapps/common/PlateUp/PlateUp</GamePath>
+				<GamePath Condition="!Exists('$(GamePath)')">$(HOME)/.local/share/Steam/steamapps/common/PlateUp/PlateUp</GamePath>
+				<GamePath Condition="!Exists('$(GamePath)')">$(HOME)/.var/app/com.valvesoftware.Steam/data/Steam/steamapps/common/PlateUp/PlateUp</GamePath>
+			</PropertyGroup>
+		</When>
+		<When Condition="$(OS) == 'Windows_NT'">
+			<PropertyGroup>
+				<GamePath Condition="!Exists('$(GamePath)')">$([System.IO.Path]::Combine($([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 1599600', 'InstallLocation', null, RegistryView.Registry64, RegistryView.Registry32)), "PlateUp"))</GamePath>
+
+				<_SteamLibraryPath>$([MSBuild]::GetRegistryValueFromView('HKEY_CURRENT_USER\SOFTWARE\Valve\Steam', 'SteamPath', null, RegistryView.Registry32))</_SteamLibraryPath>
+				<GamePath Condition="!Exists('$(GamePath)') AND '$(_SteamLibraryPath)' != ''">$(_SteamLibraryPath)/steamapps/common/PlateUp/PlateUp</GamePath>
+
+				<GamePath Condition="!Exists('$(GamePath)')">C:\Program Files\Steam\steamapps\common\PlateUp\PlateUp</GamePath>
+				<GamePath Condition="!Exists('$(GamePath)')">C:\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp</GamePath>
+			</PropertyGroup>
+		</When>
+	</Choose>
+
+	<PropertyGroup>
+		<DebugSymbols>true</DebugSymbols>
+		<ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+
+		<WorkshopPath Condition="'$(WorkshopPath)' == ''">$([System.IO.Path]::GetDirectoryName($([System.IO.Path]::GetDirectoryName($([System.IO.Path]::GetDirectoryName($(GamePath)))))))\workshop\content\1599600</WorkshopPath>
+		<AssemblyReferencePath Condition="'$(AssemblyReferencePath)' == ''">$([System.IO.Path]::Combine($(GamePath), 'PlateUp_Data', 'Managed'))</AssemblyReferencePath>
+		<GameModsPath Condition="'$(GameModsPath)' == ''">$([System.IO.Path]::Combine($(GamePath), 'Mods'))</GameModsPath>
+		<AssetBundlePath Condition="'$(AssetBundlePath)' == ''">$([System.IO.Path]::Combine($(USERPROFILE), 'My Project', 'Assets', 'AssetBundles', $([System.String]::Copy('$(MSBuildProjectName)').ToLower())))</AssetBundlePath>
+		<OutputDirectory Condition="'$(OutputDirectory)' == ''">$([System.IO.Path]::Combine($(GamePath), 'PlateUp_Data', 'PublicizedAssemblies'))</OutputDirectory>
+		
+		<EnableModDeployLocal Condition="'$(EnableModDeployLocal)' == ''">true</EnableModDeployLocal>
+		<EnableGameDebugging Condition="'$(EnableGameDebugging)' == ''">true</EnableGameDebugging>
+		<EnableCopyLocal Condition="'$(EnableCopyLocal)' == ''">false</EnableCopyLocal>
+		<EnableDocumentation Condition="'$(EnableDocumentation)' == ''">false</EnableDocumentation>
+		<EnableAutoReference Condition="'$(EnableAutoReference)' == ''">true</EnableAutoReference>
+	</PropertyGroup>
+	
+	<ItemGroup>
+		<Blacklist Include="$(AssemblyReferencePath)\System.Buffers.dll"/>
+		<Blacklist Include="$(AssemblyReferencePath)\Microsoft.Extensions.Logging.Abstractions.dll"/>
+		<Blacklist Include="$(AssemblyReferencePath)\Mono.Posix.dll" />
+		<Blacklist Include="$(AssemblyReferencePath)\Mono.Security.dll" />
+	</ItemGroup>
+
+	<Target Name="ValidateGamePath" AfterTargets="BeforeBuild">
+		<Error Condition="!Exists('$(GamePath)')" Text="The mod build package can't find your game folder. You can specify where to find it" ContinueOnError="false" />
+	</Target>
+
+	<PropertyGroup Condition="'$(OS)' == 'Windows_NT' AND '$(EnableGameDebugging)' == 'true'">
+		<StartAction>Program</StartAction>
+		<StartProgram>$(GamePath)\PlateUp.exe</StartProgram>
+		<StartWorkingDirectory>$(GamePath)</StartWorkingDirectory>
+	</PropertyGroup>
+
+	<ItemGroup Condition="'$(GamePath)' != '' AND '$(EnableCopyLocal)' AND '$(EnableAutoReference)'">
+		<Reference Include="$(AssemblyReferencePath)\*.dll" Private="true" />
+		<Reference Include="$(WorkshopPath)\**\*.dll" Private="true" />
+		<Reference Include="$(GameModsPath)\**\content\*.dll" Exclude="$(GameModsPath)\$(MSBuildProjectName)\**\content\*.dll" Private="true"/>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(GamePath)' != '' AND '!$(EnableCopyLocal)' AND '$(EnableAutoReference)'">
+		<Reference Include="$(AssemblyReferencePath)\*.dll" Exclude="@(Blacklist)" Private="false" />
+		<Reference Include="$(WorkshopPath)\**\*.dll" Private="false" />
+		<Reference Include="$(GameModsPath)\**\content\*.dll" Exclude="$(GameModsPath)\$(MSBuildProjectName)\**\content\*.dll" Private="false"/>
+	</ItemGroup>
+
+	<PropertyGroup Condition="'$(EnableDocumentation)'">
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<DocumentationFile>bin\$(Configuration)/$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+	</PropertyGroup>
+		
+	<Target Name="Deploy" AfterTargets="Build" Condition="$(EnableModDeployLocal) == 'true'">
+		<Message Text="***********************************************************" Importance="high"/>
+		<Message Text="Running DeployPack target..." Importance="high" />
+		<Message Text="***********************************************************" Importance="high"/>
+		
+		<ItemGroup>
+			<_DLLToCopy Include="$(ProjectDir)/bin/$(Configuration)/$(TargetFramework)/$(AssemblyName).dll" />
+			<_XMLToCopy Include="$(ProjectDir)/bin/$(Configuration)/$(TargetFramework)/$(AssemblyName).xml" />
+		</ItemGroup>
+
+		<Copy SourceFiles="@(_DLLToCopy)" DestinationFiles="@(_DLLToCopy->'$(GameModsPath)\$(MSBuildProjectName)\content\%(RecursiveDir)%(Filename)%(Extension)')" />
+		<Copy Condition="Exists('$(AssetBundlePath)')" SourceFiles="$(AssetBundlePath)" DestinationFiles="$(GameModsPath)\$(MSBuildProjectName)\content\$([System.String]::Copy('$(MSBuildProjectName)').ToLower()).assets" />
+		<Copy Condition="'$(EnableDocumentation)'" SourceFiles="@(_XMLToCopy)" DestinationFiles="@(_XMLToCopy->'$(GameModsPath)\$(MSBuildProjectName)\content\%(RecursiveDir)%(Filename)%(Extension)')" />
+	</Target>
+</Project>

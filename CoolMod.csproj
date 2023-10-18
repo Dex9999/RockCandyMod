@@ -15,6 +15,17 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
+  <PropertyGroup>
+		<!-- Where you want the content/ folder to go (the parent of this folder is your "workshop folder" when uploading). By default, this is the root folder of the project. -->
+		<WorkshopDir>$(ProjectDir)content</WorkshopDir>
+		
+		<!-- ASSET BUNDLES -->
+
+		<!-- Set the next line to 'true' if you have an asset bundle -->
+		<EnableAssetBundleDeploy>true</EnableAssetBundleDeploy>
+		<!-- Change this if your mod.assets is located elsewhere than the default location -->
+		<AssetBundlePath>$(ProjectDir)content\mod.assets</AssetBundlePath>
+	</PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -43,19 +54,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="mod.cs" />
-    <Compile Include="Customs\Meth.cs" />
+    <Compile Include="Mains\CookedMeth.cs" />
+    <Compile Include="Mains\MethDish.cs" />
+    <Compile Include="Mod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="content\mod.assets" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+	  <Compile Remove="content\**" />
+	  <Compile Remove="UnityProject\**" />
+	  <EmbeddedResource Remove="content\**" />
+	  <EmbeddedResource Remove="UnityProject\**" />
+	  <None Remove="content\**" />
+	  <None Remove="UnityProject\**" />
+	</ItemGroup>
+  <ItemGroup>
+	  <None Remove="plateup_mod_metadata.json" />
+	  <None Remove="*.png" />
+	</ItemGroup>
+  
+	<ItemGroup>
+		<PackageReference Include="Yariazen.PlateUp.ModBuildUtilities" Version="1.10.21" />
+	</ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\Yariazen.PlateUp.ModBuildUtilities.1.10.21\build\Yariazen.PlateUp.ModBuildUtilities.targets" Condition="Exists('..\packages\Yariazen.PlateUp.ModBuildUtilities.1.10.21\build\Yariazen.PlateUp.ModBuildUtilities.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Yariazen.PlateUp.ModBuildUtilities.1.10.21\build\Yariazen.PlateUp.ModBuildUtilities.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Yariazen.PlateUp.ModBuildUtilities.1.10.21\build\Yariazen.PlateUp.ModBuildUtilities.targets'))" />
-  </Target>
 </Project>
