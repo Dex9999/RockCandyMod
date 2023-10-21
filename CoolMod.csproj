@@ -16,16 +16,14 @@
     </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup>
-		<!-- Where you want the content/ folder to go (the parent of this folder is your "workshop folder" when uploading). By default, this is the root folder of the project. -->
-		<WorkshopDir>$(ProjectDir)content</WorkshopDir>
-		
-		<!-- ASSET BUNDLES -->
-
-		<!-- Set the next line to 'true' if you have an asset bundle -->
-		<EnableAssetBundleDeploy>true</EnableAssetBundleDeploy>
-		<!-- Change this if your mod.assets is located elsewhere than the default location -->
-		<AssetBundlePath>$(ProjectDir)content\mod.assets</AssetBundlePath>
-	</PropertyGroup>
+    <!-- Where you want the content/ folder to go (the parent of this folder is your "workshop folder" when uploading). By default, this is the root folder of the project. -->
+    <WorkshopDir>$(ProjectDir)content</WorkshopDir>
+    <!-- ASSET BUNDLES -->
+    <!-- Set the next line to 'true' if you have an asset bundle -->
+    <EnableAssetBundleDeploy>true</EnableAssetBundleDeploy>
+    <!-- Change this if your mod.assets is located elsewhere than the default location -->
+    <AssetBundlePath>$(ProjectDir)content\mod.assets</AssetBundlePath>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -57,6 +55,7 @@
     <Compile Include="Mains\CookedMeth.cs" />
     <Compile Include="Mains\MethDish.cs" />
     <Compile Include="Mod.cs" />
+    <Compile Include="Processes\BreakProcess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -64,20 +63,19 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-	  <Compile Remove="content\**" />
-	  <Compile Remove="UnityProject\**" />
-	  <EmbeddedResource Remove="content\**" />
-	  <EmbeddedResource Remove="UnityProject\**" />
-	  <None Remove="content\**" />
-	  <None Remove="UnityProject\**" />
-	</ItemGroup>
+    <Compile Remove="content\**" />
+    <Compile Remove="UnityProject\**" />
+    <EmbeddedResource Remove="content\**" />
+    <EmbeddedResource Remove="UnityProject\**" />
+    <None Remove="content\**" />
+    <None Remove="UnityProject\**" />
+  </ItemGroup>
   <ItemGroup>
-	  <None Remove="plateup_mod_metadata.json" />
-	  <None Remove="*.png" />
-	</ItemGroup>
-  
-	<ItemGroup>
-		<PackageReference Include="Yariazen.PlateUp.ModBuildUtilities" Version="1.10.21" />
-	</ItemGroup>
+    <None Remove="plateup_mod_metadata.json" />
+    <None Remove="*.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Yariazen.PlateUp.ModBuildUtilities" Version="1.10.21" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

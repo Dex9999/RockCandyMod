@@ -11,6 +11,8 @@ using static KitchenLib.Utils.GDOUtils;
 using UnityEngine;
 using KitchenLib.Customs;
 using KitchenLib.Utils;
+using System.Collections.Generic; //for processes <<
+using MethMod.Processes;
 
 namespace MethMod.Mains
 {
@@ -32,15 +34,15 @@ namespace MethMod.Mains
         //game makes a provider for free :o
         public override Appliance DedicatedProvider => null;
 
-        /*public override List<Item.ItemProcess> Processes => new List<Item.ItemProcess>
+        public override List<Item.ItemProcess> Processes => new List<Item.ItemProcess>
         {
             new Item.ItemProcess
             {
-                Duration = 2, // how long to interact
-                Process = Mod.Cook, // using the cook process we defined/grabbed in mod.cs
-                Result = Refs.Pancake // turns into what
+                Duration = 10, // how long to interact
+                Process = Mod.BreakProcess, // using the cook process we defined/grabbed in mod.cs
+                Result = Mod.Cheese // turns into what
             }
-        };*/
+        };
 
         public override void OnRegister(GameDataObject gameDataObject)
         {

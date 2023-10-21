@@ -33,7 +33,7 @@ namespace MethMod.Mains
         // decide if you need to be on a specific franchise tier for this Unlock to appear as an option. goes with MinimumFranchiseTier 
         public override bool IsSpecificFranchiseTier => false;
         // if this Dish should generate an entity to be saved.
-        public override bool DestroyAfterModUninstall => false;
+        public override bool DestroyAfterModUninstall => true;
         // IsUnlockable is used to decide if this Unlock can appear as an option. Maybe make this false later, ppl dont want meth in reg kitchen
         public override bool IsUnlockable => true;
 

@@ -15,6 +15,8 @@ using MethMod.Mains;
 using KitchenLib.Logging.Exceptions;
 using static UnityEngine.Rendering.VirtualTexturing.Debugging;
 using UnityEngine.Networking.Types;
+using TMPro;
+using MethMod.Processes;
 
 
 // Namespace should have "Kitchen" in the beginning - no
@@ -40,6 +42,7 @@ namespace MethMod
 
         //Game Data Objects already in the game
         public static Item Cheese => (Item)GDOUtils.GetExistingGDO(ItemReferences.Cheese);
+        public static Appliance Counter => (Appliance)GDOUtils.GetExistingGDO(ApplianceReferences.Countertop);
         //GDO from the helpful "IngredientLib"
         //public static Item Garlic => (Item)GDOUtils.GetExistingGDO(IngredientLib.References.GetIngredient("garlic"));
 
@@ -47,6 +50,8 @@ namespace MethMod
         public static Process Cook => (Process)GDOUtils.GetExistingGDO(ProcessReferences.Cook);
         public static Process Chop => (Process)GDOUtils.GetExistingGDO(ProcessReferences.Chop);
         public static Process Knead => (Process)GDOUtils.GetExistingGDO(ProcessReferences.Knead);
+
+        public static Process BreakProcess => (Process)GDOUtils.GetCustomGameDataObject<BreakProcess>().GameDataObject;
 
         //item, can be combined and carried around
         public static Item CookedMeth => (Item)GDOUtils.GetCustomGameDataObject<CookedMeth>().GameDataObject;
@@ -74,6 +79,7 @@ namespace MethMod
             //add the GDOs you need 
             AddGameDataObject<CookedMeth>();
             AddGameDataObject<MethDish>();
+            AddGameDataObject<BreakProcess>();
 
             LogInfo("Done loading game data.");
         }
@@ -89,6 +95,20 @@ namespace MethMod
             // TODO: Also, make sure to set EnableAssetBundleDeploy to 'true' in your ModName.csproj
             LogInfo("Attempting to load asset bundle...");
             Bundle = mod.GetPacks<AssetBundleModPack>().SelectMany(e => e.AssetBundles).FirstOrDefault() ?? throw new MissingAssetBundleException(MOD_GUID);
+            //custom process
+            LogInfo("1");
+            Bundle.LoadAllAssets<Texture2D>();
+            LogInfo("2");
+            Bundle.LoadAllAssets<Sprite>();
+            LogInfo("3");
+            var spriteAsset = Bundle.LoadAsset<TMP_SpriteAsset>("break"); // use the name of your sprite ASSET here
+            LogInfo("4");
+            TMP_Settings.defaultSpriteAsset.fallbackSpriteAssets.Add(spriteAsset);
+            LogInfo("5");
+            spriteAsset.material = Object.Instantiate(TMP_Settings.defaultSpriteAsset.material);
+            LogInfo("6");
+            spriteAsset.material.mainTexture = Bundle.LoadAsset<Texture2D>("breakTex"); // use the name of your sprite TEXTURE here
+
             LogInfo("Done loading asset bundle.");
 
             // Register custom GDOs
