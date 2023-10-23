@@ -101,13 +101,19 @@ namespace MethMod
             LogInfo("2");
             Bundle.LoadAllAssets<Sprite>();
             LogInfo("3");
-            var spriteAsset = Bundle.LoadAsset<TMP_SpriteAsset>("break"); // use the name of your sprite ASSET here
+            var spriteAsset = Bundle.LoadAsset<TMP_SpriteAsset>("breakTex"); // use the name of your sprite ASSET here
             LogInfo("4");
             TMP_Settings.defaultSpriteAsset.fallbackSpriteAssets.Add(spriteAsset);
-            LogInfo("5");
+            string[] assetNames = Bundle.GetAllAssetNames();
+
+            // Use a foreach loop to print each asset name
+            foreach (string assetName in assetNames)
+            {
+                LogInfo(assetName);
+            }
             spriteAsset.material = Object.Instantiate(TMP_Settings.defaultSpriteAsset.material);
             LogInfo("6");
-            spriteAsset.material.mainTexture = Bundle.LoadAsset<Texture2D>("breakTex"); // use the name of your sprite TEXTURE here
+            spriteAsset.material.mainTexture = Bundle.LoadAsset<Texture2D>("break"); // use the name of your sprite TEXTURE here
 
             LogInfo("Done loading asset bundle.");
 
