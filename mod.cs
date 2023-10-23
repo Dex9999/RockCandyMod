@@ -17,6 +17,7 @@ using static UnityEngine.Rendering.VirtualTexturing.Debugging;
 using UnityEngine.Networking.Types;
 using TMPro;
 using MethMod.Processes;
+using static KitchenData.Appliance;
 
 
 // Namespace should have "Kitchen" in the beginning - no
@@ -43,6 +44,7 @@ namespace MethMod
         //Game Data Objects already in the game
         public static Item Cheese => (Item)GDOUtils.GetExistingGDO(ItemReferences.Cheese);
         public static Appliance Counter => (Appliance)GDOUtils.GetExistingGDO(ApplianceReferences.Countertop);
+        
         //GDO from the helpful "IngredientLib"
         //public static Item Garlic => (Item)GDOUtils.GetExistingGDO(IngredientLib.References.GetIngredient("garlic"));
 
@@ -70,6 +72,26 @@ namespace MethMod
         protected override void OnInitialise()
         {
             LogWarning($"{MOD_GUID} v{MOD_VERSION} in use!");
+
+            Events.BuildGameDataEvent += delegate (object s, BuildGameDataEventArgs args)
+            {
+
+                if (args.gamedata.TryGet(ApplianceReferences.Countertop, out Appliance counter))
+                {
+                    if (!counter.Processes.Select(x => x.GetType()).Contains(typeof(BreakProcess)))
+                    {
+                        Appliance.ApplianceProcesses newProcess = new Appliance.ApplianceProcesses()
+                        {
+                            Process = (Process)GDOUtils.GetCustomGameDataObject<BreakProcess>().GameDataObject,
+                            IsAutomatic = true,
+                            Speed = 1f,
+                            Validity = ProcessValidity.Generic
+                        };
+                        counter.Processes.Add(newProcess);
+                    }
+                }
+            };
+
         }
 
         private void AddGameData()
@@ -120,6 +142,7 @@ namespace MethMod
             // Register custom GDOs
             AddGameData();
         }
+
 
         #region Logging
         public static void LogInfo(string _log) { Debug.Log($"[{MOD_NAME}] " + _log); }
