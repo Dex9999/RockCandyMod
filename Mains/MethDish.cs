@@ -59,6 +59,14 @@ namespace MethMod.Mains
                 Weight = 1,
                 DynamicMenuType = DynamicMenuType.Static,
                 DynamicMenuIngredient = null
+            },
+            new Dish.MenuItem
+            {
+                Item = Mod.CookedMethTray,
+                Phase = MenuPhase.Main,
+                Weight = 1,
+                DynamicMenuType = DynamicMenuType.Static,
+                DynamicMenuIngredient = null
             }
         };
         // what you need for the dish, ingredients, hob etc,
@@ -66,6 +74,7 @@ namespace MethMod.Mains
         public override HashSet<Item> MinimumIngredients => new HashSet<Item>
         {
             Mod.CookedMeth,
+            Mod.CookedMethTray,
             Mod.Cheese
         };
 

@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mains\CookedMethTray.cs" />
     <Compile Include="Mains\CookedMeth.cs" />
     <Compile Include="Mains\MethDish.cs" />
     <Compile Include="Mod.cs" />

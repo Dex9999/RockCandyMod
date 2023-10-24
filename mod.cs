@@ -57,6 +57,7 @@ namespace MethMod
 
         //item, can be combined and carried around
         public static Item CookedMeth => (Item)GDOUtils.GetCustomGameDataObject<CookedMeth>().GameDataObject;
+        public static Item CookedMethTray => (Item)GDOUtils.GetCustomGameDataObject<CookedMethTray>().GameDataObject;
         //dish
         public static Dish MethDish => (Dish)GDOUtils.GetCustomGameDataObject<MethDish>().GameDataObject;
 
@@ -83,7 +84,7 @@ namespace MethMod
                         Appliance.ApplianceProcesses newProcess = new Appliance.ApplianceProcesses()
                         {
                             Process = (Process)GDOUtils.GetCustomGameDataObject<BreakProcess>().GameDataObject,
-                            IsAutomatic = true,
+                            IsAutomatic = false,
                             Speed = 1f,
                             Validity = ProcessValidity.Generic
                         };
@@ -100,6 +101,7 @@ namespace MethMod
 
             //add the GDOs you need 
             AddGameDataObject<CookedMeth>();
+            AddGameDataObject<CookedMethTray>();
             AddGameDataObject<MethDish>();
             AddGameDataObject<BreakProcess>();
 

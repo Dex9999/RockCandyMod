@@ -16,13 +16,13 @@ using MethMod.Processes;
 
 namespace MethMod.Mains
 {
-    internal class CookedMeth : CustomItem
+    internal class CookedMethTray : CustomItem
     {
         //self explanatory
-        public override string UniqueNameID => "CookedMeth";
+        public override string UniqueNameID => "CookedMethTray";
         // This is the GameObject used for this Item's visual.
         // the name of my obj was Crystal
-        public override GameObject Prefab => Mod.Bundle.LoadAsset<GameObject>("Crystal");
+        public override GameObject Prefab => Mod.Bundle.LoadAsset<GameObject>("tray");
         // other catergories?
         public override ItemCategory ItemCategory => ItemCategory.Generic;
         // this food is stackable
@@ -38,22 +38,24 @@ namespace MethMod.Mains
         {
             new Item.ItemProcess
             {
-                Duration = 1, // how long to interact
+                Duration = 2, // how long to interact
                 Process = Mod.BreakProcess, // using the cook process we defined/grabbed in mod.cs
-                Result = Mod.Cheese // turns into what
+                Result = Mod.CookedMeth // turns into what
             }
         };
 
         public override void OnRegister(GameDataObject gameDataObject)
         {
-            MaterialUtils.ApplyMaterial(Prefab, "mesh", new Material[]
-            {
-                MaterialUtils.GetCustomMaterial("ShinyBlue"),
-            });
+            // MaterialUtils.ApplyMaterial(Prefab, "mesh", new Material[]
+            // {
+            //     MaterialUtils.GetCustomMaterial("ShinyBlue"),
+            // });
             // you want to select the mesh, not the actual parent object
             // material name is ShinyBlue
             // below is simpler but starflux doesn't know so i did above for now
-            // Prefab.ApplyMaterialToChild("mesh", "ShinyBlue");
+            
+            Prefab.ApplyMaterialToChild("contents", "ShinyBlue");
+            Prefab.ApplyMaterialToChild("pan", "Metal");
         }
     }
 }
