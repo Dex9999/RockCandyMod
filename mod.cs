@@ -43,6 +43,9 @@ namespace MethMod
 
         //Game Data Objects already in the game
         public static Item Cheese => (Item)GDOUtils.GetExistingGDO(ItemReferences.Cheese);
+        public static Item Pot => (Item)GDOUtils.GetExistingGDO(ItemReferences.Pot);
+        public static Item Water => (Item)GDOUtils.GetExistingGDO(ItemReferences.Water);
+        public static Item Sugar => (Item)GDOUtils.GetExistingGDO(ItemReferences.Sugar);
         public static Appliance Counter => (Appliance)GDOUtils.GetExistingGDO(ApplianceReferences.Countertop);
         
         //GDO from the helpful "IngredientLib"
@@ -52,14 +55,19 @@ namespace MethMod
         public static Process Cook => (Process)GDOUtils.GetExistingGDO(ProcessReferences.Cook);
         public static Process Chop => (Process)GDOUtils.GetExistingGDO(ProcessReferences.Chop);
         public static Process Knead => (Process)GDOUtils.GetExistingGDO(ProcessReferences.Knead);
+        public static Process Wash => (Process)GDOUtils.GetExistingGDO(ProcessReferences.Clean);
 
         public static Process BreakProcess => (Process)GDOUtils.GetCustomGameDataObject<BreakProcess>().GameDataObject;
 
         //item, can be combined and carried around
         public static Item CookedMeth => (Item)GDOUtils.GetCustomGameDataObject<CookedMeth>().GameDataObject;
         public static Item CookedMethTray => (Item)GDOUtils.GetCustomGameDataObject<CookedMethTray>().GameDataObject;
+
+        public static ItemGroup UnstirredSolution => (ItemGroup)GDOUtils.GetCustomGameDataObject<UnstirredSolution>().GameDataObject;
         //dish
         public static Dish MethDish => (Dish)GDOUtils.GetCustomGameDataObject<MethDish>().GameDataObject;
+
+        public static Item Flask => (Item)GDOUtils.GetCustomGameDataObject<Flask>().GameDataObject;
 
         public Mod() : base(MOD_GUID, MOD_NAME, MOD_AUTHOR, MOD_VERSION, $"{MOD_GAMEVERSION}", Assembly.GetExecutingAssembly())
         {
@@ -102,6 +110,8 @@ namespace MethMod
             //add the GDOs you need 
             AddGameDataObject<CookedMeth>();
             AddGameDataObject<CookedMethTray>();
+            AddGameDataObject<Flask>();
+            AddGameDataObject<UnstirredSolution>();
             AddGameDataObject<MethDish>();
             AddGameDataObject<BreakProcess>();
 

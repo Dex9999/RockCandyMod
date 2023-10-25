@@ -52,9 +52,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mains\Flask.cs" />
     <Compile Include="Mains\CookedMethTray.cs" />
     <Compile Include="Mains\CookedMeth.cs" />
+    <Compile Include="Mains\CornSyrup.cs" />
     <Compile Include="Mains\MethDish.cs" />
+    <Compile Include="Mains\UnstirredSolution.cs" />
     <Compile Include="Mod.cs" />
     <Compile Include="Processes\BreakProcess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

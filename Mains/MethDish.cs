@@ -75,7 +75,9 @@ namespace MethMod.Mains
         {
             Mod.CookedMeth,
             Mod.CookedMethTray,
-            Mod.Cheese
+            Mod.Cheese,
+            Mod.Flask,
+            Mod.Sugar
         };
 
         // needed interactive stuff
